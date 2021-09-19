@@ -1,7 +1,8 @@
-from sklearn.ensemble import RandomForestClassifier
+import time
+import sys
+
 from sklearn import preprocessing
 import pandas as pd
-import time
 
 def visualize_predictions(results):
     ## Visualization of the predicted values
@@ -28,10 +29,9 @@ def predict_values(test_data, model):
     print()
     return results
 
-def train_model_random_forest(training_data, training_target):
+def train_model(training_data, training_target, model):
     print('Starting training...')
     start_time = time.time()
-    model = RandomForestClassifier()
     model.fit(training_data, training_target.values.ravel())
     end_time = time.time()
     print('Training complete...')
@@ -68,3 +68,22 @@ def read_csv(columns_considered, column_label_index, csv_file_name):
     print('Dataset contains ', len(columns_considered), 'features, and ', len(y), 'registers')
     print()
     return x,y
+
+def train_using_model(training_data, training_target, test_data, test_target, model_informed):
+    model = train_model(training_data, training_target, model_informed)
+    results = predict_values(test_data, model)
+    evaluate_model(test_target, results)
+
+def evaluate_model(test_target, results):
+    calculate_hit_rate(test_target, results)
+    visualize_predictions(results)
+    print()
+
+def help():
+    print('Supported arguments:')
+    print('rf    - Random Forest')
+    print('boost - Gradient Boosting')
+    print('nb    - Gaussian NB')
+    print('knn   - K Neighbors')
+    print('dt    - Decision Tree')
+    sys.exit()

@@ -2,6 +2,9 @@ import time
 import sys
 
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import SelectKBest, f_classif
+import numpy as np
 import pandas as pd
 
 def visualize_predictions(results):
@@ -16,7 +19,7 @@ def visualize_predictions(results):
 
 
 def calculate_hit_rate(test_target, results):
-    hits = (results == test_target.values[:,0])
+    hits = (results == test_target.values)
 
     hit_rate = 100.0 * sum(hits)/len(test_target)
     print("Our algorithm hit rate: %f" % hit_rate)
@@ -39,17 +42,14 @@ def train_model(training_data, training_target, model):
     print()
     return model
 
-def set_trainingset_and_testset(y, normalized_x, rate_training, test_training):
+def set_trainingset_and_testset(y, x, rate_training, test_training):
     print('Setting training and test data...')
     training_size = rate_training*len(y)
     test_size = test_training*len(y)
     print('The training set contains %2d registers' % training_size)
     print('The testing set contains %2d registers' % test_size)
     print()
-    training_data = normalized_x[:int(training_size)]
-    training_target = y[:int(training_size)]
-    test_data = normalized_x[int(-test_size):]
-    test_target = y[int(-test_size):]
+    training_data, test_data, training_target,test_target = train_test_split(x, y, test_size=test_training, random_state=42)
     return training_data,training_target,test_data,test_target
 
 def normalize_features(x):
@@ -59,13 +59,14 @@ def normalize_features(x):
     print()
     return normalized_x
 
-def read_csv(columns_considered, column_label_index, csv_file_name):
+def read_csv(columns_to_drop, column_label_name, csv_file_name):
     print('Reading csv file...')
     data = pd.read_csv('data/' + csv_file_name)
-    x = data.iloc[:, columns_considered]
-    y = data.iloc[:, column_label_index]
+    data = data[~data.isin([np.nan, np.inf, -np.inf, np.negative]).any(1)]
+    x = data.drop(columns_to_drop, axis=1)
+    y = data[column_label_name]
     print('Reading csv file complete...')
-    print('Dataset contains ', len(columns_considered), 'features, and ', len(y), 'registers')
+    print('Dataset contains ', x.shape[1], 'features, and ', y.shape[0], 'registers')
     print()
     return x,y
 
@@ -87,3 +88,18 @@ def help():
     print('knn   - K Neighbors')
     print('dt    - Decision Tree')
     sys.exit()
+
+def feature_selection(x_train, y_train, k):
+    x_k_best= SelectKBest(f_classif, k=k).fit(x_train, y_train)
+
+    mask = x_k_best.get_support()
+    a = []
+    b = []
+    for bool, feature in zip(mask, x_train.columns):
+        if bool:
+            a.append(feature)
+        else:
+            b.append(feature)
+
+    print('The best features are:{}'.format(a))
+    return a,b

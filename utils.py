@@ -93,13 +93,13 @@ def feature_selection(x_train, y_train, k):
     x_k_best= SelectKBest(f_classif, k=k).fit(x_train, y_train)
 
     mask = x_k_best.get_support()
-    a = []
-    b = []
+    good_features = []
+    bad_features = []
     for bool, feature in zip(mask, x_train.columns):
         if bool:
-            a.append(feature)
+            good_features.append(feature)
         else:
-            b.append(feature)
+            bad_features.append(feature)
 
-    print('The best features are:{}'.format(a))
-    return a,b
+    print('\nThe best features are:{}\n'.format(good_features))
+    return good_features,bad_features

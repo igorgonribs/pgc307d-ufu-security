@@ -37,8 +37,11 @@ if argument_list[0] == 'help':
 csv_file_name = '_Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv'
 
 x, y = util.read_csv(dropped_features, label_column_name, csv_file_name)
+
 features_selected, features_to_drop = util.feature_selection(x, y, k)
-normalized_x = util.normalize_features(x.drop(features_to_drop, axis=1))
+x = x.drop(features_to_drop, axis=1)
+
+normalized_x = util.normalize_features(x)
 
 training_data, training_target, test_data, test_target = util.set_trainingset_and_testset(y, normalized_x, rate_training, test_training)
 

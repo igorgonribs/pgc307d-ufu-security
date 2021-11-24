@@ -1,4 +1,3 @@
-python3 classification_script.py
 Executing the following training algoritms:  ['rf', 'boost', 'nb', 'knn', 'dt']
 Reading csv file...
 Reading csv file complete...
@@ -16,59 +15,105 @@ The testing set contains 67713 registers
 Random Forest
 Starting training...
 Training complete...
-Duration of training:  21.976402044296265 seconds.
+Duration of training:  23.59639000892639 seconds.
 
 Starting prediction...
 Prediction complete...
 
-Our algorithm hit rate: 99.893670
 Number of DDoS predictions: 38329
 Number of Benign predictions: 29385
-
+Confusion Matrix: 
+[[29317     4]
+ [   68 38325]]
+F-Score: 
+0.9989175482177792
+Precision: 
+0.9987907672702137
+Recall: 
+0.9990462114022298
+Accuraccy: 
+0.9989367043742801
 Gradient Boosting
 Starting training...
 Training complete...
-Duration of training:  37.316476345062256 seconds.
+Duration of training:  41.59580898284912 seconds.
 
 Starting prediction...
 Prediction complete...
 
-Our algorithm hit rate: 99.880379
 Number of DDoS predictions: 38334
 Number of Benign predictions: 29380
-
+Confusion Matrix: 
+[[29310    11]
+ [   70 38323]]
+F-Score: 
+0.9987822173828157
+Precision: 
+0.9986652376448445
+Recall: 
+0.9989007966167267
+Accuraccy: 
+0.9988037924210651
 Gaussian NB
 Starting training...
 Training complete...
-Duration of training:  0.4901103973388672 seconds.
+Duration of training:  0.4906165599822998 seconds.
 
 Starting prediction...
 Prediction complete...
 
-Our algorithm hit rate: 79.131347
 Number of DDoS predictions: 52504
 Number of Benign predictions: 15210
-
+Confusion Matrix: 
+[[15200 14121]
+ [   10 38383]]
+F-Score: 
+0.7636044113999204
+Precision: 
+0.8651958003663075
+Recall: 
+0.7590696587896488
+Accuraccy: 
+0.7913134654576601
 K Neighbors
 Starting training...
 Training complete...
-Duration of training:  7.546386003494263 seconds.
+Duration of training:  10.209981918334961 seconds.
 
 Starting prediction...
 Prediction complete...
 
-Our algorithm hit rate: 99.757805
 Number of DDoS predictions: 38371
 Number of Benign predictions: 29343
-
+Confusion Matrix: 
+[[29250    71]
+ [   93 38300]]
+F-Score: 
+0.9975340001349984
+Precision: 
+0.9974901170909126
+Recall: 
+0.9975781053836162
+Accuraccy: 
+0.9975780488525268
 Decision Tree
 Starting training...
 Training complete...
-Duration of training:  1.0324552059173584 seconds.
+Duration of training:  1.1072616577148438 seconds.
 
 Starting prediction...
 Prediction complete...
 
-Our algorithm hit rate: 99.878902
-Number of DDoS predictions: 38341
-Number of Benign predictions: 29373
+Number of DDoS predictions: 38343
+Number of Benign predictions: 29371
+Confusion Matrix: 
+[[29304    17]
+ [   67 38326]]
+F-Score: 
+0.9987370688089594
+Precision: 
+0.9986377359272409
+Recall: 
+0.9988375504923998
+Accuraccy: 
+0.9987594884366601

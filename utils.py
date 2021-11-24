@@ -3,6 +3,7 @@ import sys
 
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score, accuracy_score
 from sklearn.feature_selection import SelectKBest, f_classif
 import numpy as np
 import pandas as pd
@@ -73,12 +74,17 @@ def read_csv(columns_to_drop, column_label_name, csv_file_name):
 def train_using_model(training_data, training_target, test_data, test_target, model_informed):
     model = train_model(training_data, training_target, model_informed)
     results = predict_values(test_data, model)
-    evaluate_model(test_target, results)
-
-def evaluate_model(test_target, results):
-    calculate_hit_rate(test_target, results)
     visualize_predictions(results)
-    print()
+    print("Confusion Matrix: ")
+    print(confusion_matrix(test_target, results))
+    print("F-Score: ")
+    print(f1_score(test_target, results, average='macro'))
+    print("Precision: ")
+    print(precision_score(test_target, results, average='macro'))
+    print("Recall: ")
+    print(recall_score(test_target, results, average='macro'))
+    print("Accuraccy: ")
+    print(accuracy_score(test_target, results))
 
 def help():
     print('Supported arguments:')

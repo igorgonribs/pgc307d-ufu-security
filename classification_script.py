@@ -38,10 +38,23 @@ csv_file_name = '_Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv'
 
 x, y = util.read_csv(dropped_features, label_column_name, csv_file_name)
 
+# feature selection -> normalization
+
 features_selected, features_to_drop = util.feature_selection(x, y, k)
 x = x.drop(features_to_drop, axis=1)
 
 normalized_x = util.normalize_features(x)
+
+
+
+# normalization -> feature selection 
+
+#normalized_x = util.normalize_features(x)
+
+#features_selected, features_to_drop = util.feature_selection(normalized_x, y, k)
+#normalized_x = normalized_x.drop(features_to_drop, axis=1)
+
+
 
 training_data, training_target, test_data, test_target = util.set_trainingset_and_testset(y, normalized_x, rate_training, test_training)
 
